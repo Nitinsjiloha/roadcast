@@ -6,13 +6,7 @@
         <div class="wrapper-editor">
 
             <div class="d-flex justify-content-left buttons-wrapper flex-wrap">
-                <a  href="{% url 'second'%}" class="btn btn-primary">Create New</a>
-
-
-                <button id="" class="btn btn-sm btn-teal btn-rounded addNewColumn">Activate edits</button>
-                <button id="" class="btn btn-sm btn-mdb-color btn-rounded removeColumns" disabled>Deactivate edits
-                </button>
-                <button id="" class="btn btn-sm btn-info btn-rounded addNewRows">Add new rows</button>
+                <a href="{% url 'second' %}" class="btn btn-primary">Create New</a>
             </div>
             <br>
             <div class="closeByClick d-none"></div>
@@ -35,90 +29,72 @@
             <table id="dt-more-row-col" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th class="th-sm">Name
+                    <th style="font-size: 18px; font-weight: bold;" class="th-lg">Name
                     </th>
-                    <th class="th-sm">Description
+                    <th style="font-size: 18px; font-weight: bold;" class="th-lg">Description
                     </th>
-                    <th class="th-sm">Edit
+                    <th style="font-size: 18px; font-weight: bold;" class="th-sm">Edit
                     </th>
-                    <th class="th-sm">Enable
-                    </th>
-                    <th class="th-sm">Start date
+                    <th style="font-size: 18px; font-weight: bold;" class="th-sm">Enable
                     </th>
 
 
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
+                {% for zone in zones %}
+                    <tr>
+                        <td style="width: 500px;">{{ zone.user }}</td>
+                        <td style="width: 500px;">{{ zone.description }}</td>
+                        <td>
+                            <form action="zone_idd" method="GET" class="post-form">
+                                <a data-toggle="modal"
+                                   data-target="#exampleModal"
+                                   data-whatever="@fat" > <img src="{% static 'pen.png' %}" alt="pen" width=20px;
+                                                              height=20px;></a>
+                            </form>
+                        </td>
+                    </tr>
 
-                </tr>
-                <tr>
-                    <td>Garrett Winters</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>63</td>
-                    <td>2011/07/25</td>
-
-                </tr>
-                <tr>
-                    <td>Ashton Cox</td>
-                    <td>Junior Technical Author</td>
-                    <td>San Francisco</td>
-                    <td>66</td>
-                    <td>2009/01/12</td>
-
-                </tr>
-                <tr>
-                    <td>Cedric Kelly</td>
-                    <td>Senior Javascript Developer</td>
-                    <td>Edinburgh</td>
-                    <td>22</td>
-                    <td>2012/03/29</td>
-
-                </tr>
-                <tr>
-                    <td>Airi Satou</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>33</td>
-                    <td>2008/11/28</td>
-
-                </tr>
-                <tr>
-                    <td>Brielle Williamson</td>
-                    <td>Integration Specialist</td>
-                    <td>New York</td>
-                    <td>61</td>
-                    <td>2012/12/02</td>
-
-                </tr>
-
+                {% endfor %}
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name
-                    </th>
-                    <th>Position
-                    </th>
-                    <th>Office
-                    </th>
-                    <th>Age
-                    </th>
-                    <th>Start date
-                    </th>
-
-                </tr>
-                </tfoot>
             </table>
+
             <button class="btn btn-primary">Download</button>
         </div>
 
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <div style="float: right;">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form action="add_user" method="POST" class="post-form">
+                        <div class="form-group">
+{#                            <label for="recipient-name" class="col-form-label">User Name:</label>#}
+                            <label for="recipient-name" class="col-form-label">{{ zone.id }}</label>
+                            <input type="text" class="form-control" id="recipient-name"
+                                   name="user_name">
+                            <br>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
